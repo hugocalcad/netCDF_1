@@ -4,7 +4,7 @@ import streamlit as st
 import xarray as xr
 import pandas as pd
 import matplotlib
-matplotlib.use('TkAgg')
+#matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
