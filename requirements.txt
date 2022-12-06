@@ -5,3 +5,6 @@ xarray
 matplotlib
 seaborn
 numpy
+netCDF4
+scipy
+h5netcdf
