@@ -6,12 +6,3 @@ matplotlib
 seaborn
 numpy
 netCDF4
-scipy
-h5netcdf
-pydap 
-zarr 
-fsspec 
-cftime 
-rasterio 
-cfgrib 
-pooch
