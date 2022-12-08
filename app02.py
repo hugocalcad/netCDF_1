@@ -23,7 +23,7 @@ def read_noaa(filename: str) -> xr.Dataset:
     -------
     `xarray.Dataset`
     """
-    return xr.open_dataset(filename, engine = 'netcdf4')
+    return xr.open_dataset(filename, engine="h5netcdf")
  
 # Esto se explicó en:
 # https://pybonacci.org/2020/01/20/pintando-las-bandas-del-calentamiento-warming-stripes-con-seaborn-y-matplotlib-en-python/
