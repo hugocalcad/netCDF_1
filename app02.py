@@ -9,46 +9,16 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
-# Esto se explicó en:
-# https://pybonacci.org/2020/01/20/pintando-las-bandas-del-calentamiento-warming-stripes-con-seaborn-y-matplotlib-en-python/
 def read_noaa(filename: str) -> xr.Dataset:
-    """Read the netCDF file downloaded using `download_noaa`.
+
+    return xr.open_dataset(filename, engine="netcdf4")
  
-    Parameters
-    ----------
-    filename : str
-        The name of the file to read as `xarray.Dataset`
- 
-    Returns
-    -------
-    `xarray.Dataset`
-    """
-    return xr.open_dataset(filename, engine="netcdf4", decode_cf=False)
- 
-# Esto se explicó en:
-# https://pybonacci.org/2020/01/20/pintando-las-bandas-del-calentamiento-warming-stripes-con-seaborn-y-matplotlib-en-python/
 def get_noaa_timeseries(
         xarr: xr.Dataset, 
         lon: Union[int, float], 
         lat: Union[int, float]
     ) -> xr.Dataset:
-    """Get the annual temperature anomaly time series from NOAA data.
- 
-    Parameters
-    ----------
-    xarr : xr.Dataset
-        `xarray.Dataset` containing the monthly anomalies.
-    lon : Union[int, float]
-        Longitude in decimal degrees. It will return the closest timeseries
-        to this location.
-    lat : Union[int, float]
-        Latitude in decimal degrees. It will return the closest timeseries
-        to this location.
- 
-    Returns
-    -------
-    `xarray.Dataset`.
-    """
+
     data = xarr.sel(lon=lon, lat=lat, z=0, method='nearest')
     df = data.to_dataframe()['anom']
     ts = df * df.index.days_in_month
@@ -60,8 +30,6 @@ def get_noaa_timeseries(
     ts.name = "Anomalía de Temperatura"
     return ts[ts.index.year < 2020] # <- Modificado solo para usar años completos
 
-# Esto se explicó en:
-# https://pybonacci.org/2020/01/20/pintando-las-bandas-del-calentamiento-warming-stripes-con-seaborn-y-matplotlib-en-python/
 def plot_noaa(
         xarr: xr.Dataset,
         lon: Union[int, float],
@@ -88,8 +56,6 @@ def plot_noaa(
     return fig, ts # <- Modificado para no guardar la imagen y devolver fig y ts
     
 
-# Código para mostrar en la aplicación Web
-# Esta es la parte que explicaré con un poco más de detalle.
 xarr = read_noaa("NOAA_V5_air_temperature_anomaly.nc")
 
 st.title('#ShowYourStripes')
